@@ -1,31 +1,31 @@
 package com.example.GetRide.model;
 
 import com.example.GetRide.Enum.CabType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Cab {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int id;
 
-    private String cabNumber;
+    String cabNumber;
 
-    private CabType cabType;
+    CabType cabType;
 
-    private double farePerKm;
+    double farePerKm;
 
-    private boolean booked;
+    boolean booked;
+
+    @OneToOne
+    @JoinColumn
+    Driver driver;
 }

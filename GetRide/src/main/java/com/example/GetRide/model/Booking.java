@@ -43,5 +43,4 @@ public class Booking {
     @ManyToOne
     @JoinColumn
     Driver driver;
-
 }

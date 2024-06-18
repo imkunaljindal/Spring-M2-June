@@ -4,6 +4,7 @@ import com.example.GetRide.Enum.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -30,5 +31,5 @@ public class Customer {
     private Gender gender;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Booking> bookings;
+    private List<Booking> bookings = new ArrayList<>();
 }

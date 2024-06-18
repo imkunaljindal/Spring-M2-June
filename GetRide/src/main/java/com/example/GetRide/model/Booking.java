@@ -14,6 +14,7 @@ import java.util.Date;
 @Setter
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 public class Booking {
 
     @Id

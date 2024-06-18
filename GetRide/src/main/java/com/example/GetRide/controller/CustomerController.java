@@ -7,6 +7,7 @@ import com.example.GetRide.model.Customer;
 import com.example.GetRide.service.CustomerService;
 import jakarta.persistence.GeneratedValue;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/customer")
+@RequiredArgsConstructor
 public class CustomerController {
 
-    @Autowired
-    CustomerService customerService;
+//    @Autowired
+//    CustomerService customerService;
+
+    private final CustomerService customerService;
+
+//    public CustomerController(CustomerService customerService){
+//        this.customerService = customerService;
+//    }
 
     @PostMapping
     public ResponseEntity addCustomer(@RequestBody CustomerRequest customerRequest) {

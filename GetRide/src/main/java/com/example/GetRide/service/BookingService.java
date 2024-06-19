@@ -15,6 +15,8 @@ import com.example.GetRide.repository.DriverRepository;
 import com.example.GetRide.transformer.BookingTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -29,6 +31,9 @@ public class BookingService {
     private final CabRepository cabRepository;
     private final DriverRepository driverRepository;
     private final BookingRepo bookingRepo;
+
+    @Autowired
+    JavaMailSender javaMailSender;
 
 //    public BookingService(CustomerRespository customerRespository,
 //                          CabRepository cabRepository,
@@ -67,7 +72,22 @@ public class BookingService {
         customerRespository.save(customer); // customer + savedBooking
         driverRepository.save(driver); // driver + savedBooking
 
+        sendEmail(savedBooking);
+
         // prepare response dto
         return BookingTransformer.bookingToBookingResponse(savedBooking);
     }
+
+    private void sendEmail(Booking booking) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom("acciojobspring@gmail.com");
+        simpleMailMessage.setTo(booking.getCustomer().getEmailId());
+        simpleMailMessage.setSubject("Booking confirmed!!");
+        simpleMailMessage.setText("Congrats! " +
+                booking.getCustomer().getName() + " Your ride is confirmed!" + " " +
+                "Your booking id is: "+booking.getBookingId());
+        javaMailSender.send(simpleMailMessage);
+    }
+
+    //kunaljindal995@gmail.com
 }
